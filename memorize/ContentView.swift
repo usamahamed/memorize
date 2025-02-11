@@ -42,19 +42,25 @@ struct ContentView: View {
 }
 
 struct CardView: View {
-    var isFaceUp: Bool = false;
+    // parameters
+    @State var isFaceUp = false;
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .center) {
+            // we always use let since we can't reassign things inside the view builder
+            let base = RoundedRectangle(cornerRadius: 12)
             if isFaceUp {
-                RoundedRectangle(cornerRadius: 12)
-                    .foregroundColor(.white)
-                RoundedRectangle(cornerRadius: 12)
+                base
+                    .fill(.white)
+                base
                     .strokeBorder(lineWidth: 2)
                 Text("🐵").font(.largeTitle) // CREATING TEXT STRUCT
             } else {
-                RoundedRectangle(cornerRadius: 12)
+                base.fill()
             }
+        }.onTapGesture {
+            isFaceUp.toggle() // Cannot assign to property: 'self' is immutable you have to use @State
+            
         }
     }
 }
